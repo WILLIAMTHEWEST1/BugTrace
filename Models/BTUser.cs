@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +27,11 @@ namespace BugTrace.Models
         public string FullName { get { return $"{FirstName} {LastName}"; } }
 
         //This is the image properties needed.
+
+        [NotMapped]
+        [DataType(DataType.Upload)]
+        public IFormFile ImageFile { get; set; }
+
         [DisplayName("Avatar")]
         public string AvatarFileName { get; set; }
 
