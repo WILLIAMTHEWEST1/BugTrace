@@ -14,12 +14,12 @@ namespace BugTrace.Models
     {
         [Required]
         [DisplayName("First Name")]
-        [StringLength(40, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+        [StringLength(40)]
         public string FirstName { get; set; }
 
         [Required]
         [DisplayName("Last Name")]
-        [StringLength(40, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+        [StringLength(40)]
         public string LastName { get; set; }
 
         [NotMapped]
@@ -40,6 +40,14 @@ namespace BugTrace.Models
         [Display(Name = "File Extension")]
         public string AvatarContentType { get; set; }
 
+        public int CompanyId { get; set; }
+
+
+        //Navigational Properties
+        public virtual Company Company { get; set; }
+
+
+        public virtual ICollection<Project> Projects { get; set; } = new HashSet<Project>();
 
     }
 }

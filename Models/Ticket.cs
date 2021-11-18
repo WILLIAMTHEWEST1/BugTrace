@@ -42,7 +42,7 @@ namespace BugTrace.Models
 
 
 
-        [DisplayName("")]
+        [DisplayName("Project")]
         public int ProjectId { get; set; }
 
         [DisplayName("Ticket Type")]
