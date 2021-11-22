@@ -1,5 +1,7 @@
 using BugTrace.Data;
 using BugTrace.Models;
+using BugTrace.Services;
+using BugTrace.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -37,6 +39,12 @@ namespace BugTrace
                 .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
+
+
+            services.AddScoped<IBTRoleService, BTRoleService>();
+
+
+
 
 
             services.AddControllersWithViews();
