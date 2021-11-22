@@ -10,6 +10,7 @@ namespace BugTrace.Models.Enums
         Admin,
         ProjectManager,
         Developer,
-        Submitter
+        Submitter,
+        DemoUser
     }
 }

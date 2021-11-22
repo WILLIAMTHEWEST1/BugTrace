@@ -7,6 +7,7 @@ namespace BugTrace.Models.Enums
 {
     public enum BTNotificationTypes
     {
-
+        Projects,
+        Ticket
     }
 }

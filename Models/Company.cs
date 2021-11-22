@@ -18,7 +18,7 @@ namespace BugTrace.Models
         public string CompanyId { get; set; }
 
         [DisplayName("Company Name")]
-        public string CompanyName { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [StringLength(2500)]
