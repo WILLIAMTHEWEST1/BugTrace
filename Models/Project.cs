@@ -20,15 +20,18 @@ namespace BugTrace.Models
         [Required]
         [StringLength(50)]
         [DisplayName("ProjectName")]
-        public int Name { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [StringLength(2500)]
+        [DisplayName("Description")]
         public string Description { get; set; }
 
+        [Required]
         [DisplayName("Priority")]
         public int? ProjectPriorityId { get; set; }
-
+              
+        [Required]
         [DisplayName("Created Date")]
         [DataType(DataType.Date)]
         public DateTimeOffset CreatedDate { get; set; }
@@ -61,10 +64,11 @@ namespace BugTrace.Models
         //Navigational Properties
         public virtual Company Company { get; set; }
         public virtual ProjectPriority ProjectPriority { get; set; }
+        
 
-        public virtual ICollection<ProjectPriority> Priority { get; set; } = new HashSet<ProjectPriority>();
-        public virtual ICollection<Ticket> Ticket { get; set; } = new HashSet<Ticket>();
+        public virtual ICollection<ProjectPriority> ProjectPriorities { get; set; } = new HashSet<ProjectPriority>();
+        public virtual ICollection<Ticket> Tickets { get; set; } = new HashSet<Ticket>();
         public virtual ICollection<Notification> Notifications { get; set; } = new HashSet<Notification>();
-
+        public virtual ICollection<BTUser> Members { get; set; } = new HashSet<BTUser>();
     }
 }

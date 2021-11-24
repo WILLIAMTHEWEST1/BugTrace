@@ -26,6 +26,7 @@ namespace BugTrace.Models
         [DisplayName("Full Name")]
         public string FullName { get { return $"{FirstName} {LastName}"; } }
 
+
         //This is the image properties needed.
 
         [NotMapped]
@@ -45,8 +46,9 @@ namespace BugTrace.Models
 
         //Navigational Properties
         public virtual Company Company { get; set; }
+       
 
         public virtual ICollection<Project> Projects { get; set; } = new HashSet<Project>();
-
+        
     }
 }

@@ -1,6 +1,7 @@
 using BugTrace.Data;
 using BugTrace.Models;
 using BugTrace.Services;
+using BugTrace.Services.Factories;
 using BugTrace.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace BugTrace
 {
@@ -31,17 +33,21 @@ namespace BugTrace
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDatabaseDeveloperPageExceptionFilter();
+                options.UseNpgsql(DataUtility.GetConnectionString(Configuration), 
+                o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
 
-            services.AddIdentity<BTUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+
+
+            services.AddIdentity<BTUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true) 
+                
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultUI()
-            .AddDefaultTokenProviders();
+                .AddClaimsPrincipalFactory<BTUserClaimsPrincipalFactory>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
 
-
-            services.AddScoped<IBTRoleService, BTRoleService>();
+            //Custom Services
+            services.AddScoped<IBTRolesService, BTRoleService>();
+            services.AddScoped<IBTCompanyInfoService, BTCompanyInfoService>();
 
 
 

@@ -19,6 +19,21 @@ namespace BugTrace.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+            modelBuilder.Entity("BTUserProject", b =>
+                {
+                    b.Property<string>("MembersId")
+                        .HasColumnType("text");
+
+                    b.Property<int>("ProjectsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("MembersId", "ProjectsId");
+
+                    b.HasIndex("ProjectsId");
+
+                    b.ToTable("BTUserProject");
+                });
+
             modelBuilder.Entity("BugTrace.Models.BTUser", b =>
                 {
                     b.Property<string>("Id")
@@ -277,9 +292,6 @@ namespace BugTrace.Data.Migrations
                     b.Property<bool>("Archived")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("BTUserId")
-                        .HasColumnType("text");
-
                     b.Property<int>("CompanyId")
                         .HasColumnType("integer");
 
@@ -303,19 +315,19 @@ namespace BugTrace.Data.Migrations
                     b.Property<string>("ImageFileName")
                         .HasColumnType("text");
 
-                    b.Property<int>("Name")
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("integer");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<int?>("ProjectPriorityId")
+                        .IsRequired()
                         .HasColumnType("integer");
 
                     b.Property<DateTimeOffset?>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BTUserId");
 
                     b.HasIndex("CompanyId");
 
@@ -377,13 +389,10 @@ namespace BugTrace.Data.Migrations
                     b.Property<int>("TicketPriorityId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("TicketStatusId")
+                    b.Property<int>("TicketStatusId")
                         .HasColumnType("integer");
 
                     b.Property<int>("TicketTypeId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TicketkStatusId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Title")
@@ -739,6 +748,21 @@ namespace BugTrace.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("BTUserProject", b =>
+                {
+                    b.HasOne("BugTrace.Models.BTUser", null)
+                        .WithMany()
+                        .HasForeignKey("MembersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BugTrace.Models.Project", null)
+                        .WithMany()
+                        .HasForeignKey("ProjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("BugTrace.Models.BTUser", b =>
                 {
                     b.HasOne("BugTrace.Models.Company", "Company")
@@ -804,7 +828,7 @@ namespace BugTrace.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("BugTrace.Models.Ticket", "Ticket")
-                        .WithMany("Notification")
+                        .WithMany("Notifications")
                         .HasForeignKey("TicketId");
 
                     b.Navigation("NotificationType");
@@ -820,10 +844,6 @@ namespace BugTrace.Data.Migrations
 
             modelBuilder.Entity("BugTrace.Models.Project", b =>
                 {
-                    b.HasOne("BugTrace.Models.BTUser", null)
-                        .WithMany("Projects")
-                        .HasForeignKey("BTUserId");
-
                     b.HasOne("BugTrace.Models.Company", "Company")
                         .WithMany("Projects")
                         .HasForeignKey("CompanyId")
@@ -832,7 +852,9 @@ namespace BugTrace.Data.Migrations
 
                     b.HasOne("BugTrace.Models.ProjectPriority", "ProjectPriority")
                         .WithMany()
-                        .HasForeignKey("ProjectPriorityId");
+                        .HasForeignKey("ProjectPriorityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Company");
 
@@ -842,7 +864,7 @@ namespace BugTrace.Data.Migrations
             modelBuilder.Entity("BugTrace.Models.ProjectPriority", b =>
                 {
                     b.HasOne("BugTrace.Models.Project", null)
-                        .WithMany("Priority")
+                        .WithMany("ProjectPriorities")
                         .HasForeignKey("ProjectId");
                 });
 
@@ -857,7 +879,7 @@ namespace BugTrace.Data.Migrations
                         .HasForeignKey("OwnerUserId");
 
                     b.HasOne("BugTrace.Models.Project", "Project")
-                        .WithMany("Ticket")
+                        .WithMany("Tickets")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -870,7 +892,9 @@ namespace BugTrace.Data.Migrations
 
                     b.HasOne("BugTrace.Models.TicketStatus", "TicketStatus")
                         .WithMany()
-                        .HasForeignKey("TicketStatusId");
+                        .HasForeignKey("TicketStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BugTrace.Models.TicketType", "TicketType")
                         .WithMany()
@@ -961,7 +985,7 @@ namespace BugTrace.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("BugTrace.Models.Ticket", "Ticket")
-                        .WithMany("Task")
+                        .WithMany("Tasks")
                         .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1024,11 +1048,6 @@ namespace BugTrace.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BugTrace.Models.BTUser", b =>
-                {
-                    b.Navigation("Projects");
-                });
-
             modelBuilder.Entity("BugTrace.Models.Company", b =>
                 {
                     b.Navigation("Invites");
@@ -1042,9 +1061,9 @@ namespace BugTrace.Data.Migrations
                 {
                     b.Navigation("Notifications");
 
-                    b.Navigation("Priority");
+                    b.Navigation("ProjectPriorities");
 
-                    b.Navigation("Ticket");
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("BugTrace.Models.Ticket", b =>
@@ -1055,9 +1074,9 @@ namespace BugTrace.Data.Migrations
 
                     b.Navigation("History");
 
-                    b.Navigation("Notification");
+                    b.Navigation("Notifications");
 
-                    b.Navigation("Task");
+                    b.Navigation("Tasks");
                 });
 
             modelBuilder.Entity("BugTrace.Models.TicketTask", b =>

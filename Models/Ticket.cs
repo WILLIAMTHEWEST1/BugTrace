@@ -52,7 +52,7 @@ namespace BugTrace.Models
         public int TicketPriorityId { get; set; }
 
         [DisplayName("Task Status")]
-        public int TicketkStatusId { get; set; }
+        public int TicketStatusId { get; set; }
 
         [DisplayName("Ticket Owner")]
         public string UserUserId { get; set; }
@@ -61,7 +61,6 @@ namespace BugTrace.Models
         public string DeveloperUserId { get; set; }
 
         public virtual Project Project { get; set; }
-
         public virtual TicketType TicketType { get; set; }
         public virtual TicketPriority TicketPriority { get; set; }
         public virtual TicketStatus TicketStatus { get; set; }
@@ -70,9 +69,9 @@ namespace BugTrace.Models
 
         public virtual ICollection<TicketComment> Comments { get; set; } = new HashSet<TicketComment>();
         public virtual ICollection<TicketAttachment> Attachments { get; set; } = new HashSet<TicketAttachment>();
-        public virtual ICollection<Notification> Notification { get; set; } = new HashSet<Notification>();
+        public virtual ICollection<Notification> Notifications { get; set; } = new HashSet<Notification>();
         public virtual ICollection<TicketHistory> History { get; set; } = new HashSet<TicketHistory>();
-        public virtual ICollection<TicketTask> Task { get; set; } = new HashSet<TicketTask>();
+        public virtual ICollection<TicketTask> Tasks { get; set; } = new HashSet<TicketTask>();
 
 
 

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BugTrace.Services
 {
-    public class BTRoleService : IBTRoleService
+    public class BTRoleService : IBTRolesService
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<BTUser> _userManager;

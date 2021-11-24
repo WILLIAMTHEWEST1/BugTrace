@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BugTrace.Services.Interfaces
 {
-    interface IBTRoleService
+    public interface IBTRolesService
     {
         public Task<bool> AddUserToRoleAsync (BTUser user, string roleName );
 
