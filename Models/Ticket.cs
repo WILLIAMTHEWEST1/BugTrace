@@ -40,8 +40,6 @@ namespace BugTrace.Models
         [DisplayName("Archived By Project")]
         public bool ArchivedByProject { get; set; }
 
-
-
         [DisplayName("Project")]
         public int ProjectId { get; set; }
 
@@ -55,7 +53,7 @@ namespace BugTrace.Models
         public int TicketStatusId { get; set; }
 
         [DisplayName("Ticket Owner")]
-        public string UserUserId { get; set; }
+        public string OwnerUserId { get; set; }
 
         [DisplayName("Ticket Developer")]
         public string DeveloperUserId { get; set; }
@@ -66,6 +64,7 @@ namespace BugTrace.Models
         public virtual TicketStatus TicketStatus { get; set; }
         public virtual BTUser OwnerUser { get; set; }
         public virtual BTUser DeveloperUser { get; set; }
+      
 
         public virtual ICollection<TicketComment> Comments { get; set; } = new HashSet<TicketComment>();
         public virtual ICollection<TicketAttachment> Attachments { get; set; } = new HashSet<TicketAttachment>();

@@ -48,6 +48,10 @@ namespace BugTrace
             //Custom Services
             services.AddScoped<IBTRolesService, BTRoleService>();
             services.AddScoped<IBTCompanyInfoService, BTCompanyInfoService>();
+            services.AddScoped<IBTProjectService, BTProjectService>();
+            services.AddScoped<IBTTicketService, BTTicketService>();
+            services.AddScoped<IBTLookupService, BTLookupService>();
+            services.AddScoped<IBTFileService, BTFileService>();
 
 
 

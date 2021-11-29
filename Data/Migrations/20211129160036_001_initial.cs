@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BugTrace.Data.Migrations
 {
-    public partial class _001 : Migration
+    public partial class _001_initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,8 +28,7 @@ namespace BugTrace.Data.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CompanyId = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "character varying(2500)", maxLength: 2500, nullable: false),
                     ImageFileName = table.Column<string>(type: "text", nullable: true),
                     ImageFileData = table.Column<byte[]>(type: "bytea", nullable: true),
@@ -426,9 +425,8 @@ namespace BugTrace.Data.Migrations
                     TicketTypeId = table.Column<int>(type: "integer", nullable: false),
                     TicketPriorityId = table.Column<int>(type: "integer", nullable: false),
                     TicketStatusId = table.Column<int>(type: "integer", nullable: false),
-                    UserUserId = table.Column<string>(type: "text", nullable: true),
-                    DeveloperUserId = table.Column<string>(type: "text", nullable: true),
-                    OwnerUserId = table.Column<string>(type: "text", nullable: true)
+                    OwnerUserId = table.Column<string>(type: "text", nullable: true),
+                    DeveloperUserId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {

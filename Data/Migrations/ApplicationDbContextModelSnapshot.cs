@@ -129,10 +129,6 @@ namespace BugTrace.Data.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("CompanyId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(2500)
@@ -148,6 +144,7 @@ namespace BugTrace.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -402,9 +399,6 @@ namespace BugTrace.Data.Migrations
 
                     b.Property<DateTimeOffset>("Updated")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("UserUserId")
-                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BugTrace.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211124202030_001")]
-    partial class _001
+    [Migration("20211129160036_001_initial")]
+    partial class _001_initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -131,10 +131,6 @@ namespace BugTrace.Data.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("CompanyId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(2500)
@@ -150,6 +146,7 @@ namespace BugTrace.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -404,9 +401,6 @@ namespace BugTrace.Data.Migrations
 
                     b.Property<DateTimeOffset>("Updated")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("UserUserId")
-                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

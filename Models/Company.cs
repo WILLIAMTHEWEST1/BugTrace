@@ -14,9 +14,6 @@ namespace BugTrace.Models
         public int Id { get; set; }
 
         [Required]
-        [DisplayName("Company Description")]
-        public string CompanyId { get; set; }
-
         [DisplayName("Company Name")]
         public string Name { get; set; }
 

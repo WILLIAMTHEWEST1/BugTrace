@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BugTrace.Models.Project>
+﻿@model IEnumerable<BugTrace.Models.Company>
 
 @{
     ViewData["Title"] = "Index";
@@ -19,15 +19,6 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.ImageFileName)
             </th>
             <th>
@@ -35,15 +26,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ImageContentType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Archived)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Company)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProjectPriority)
             </th>
             <th></th>
         </tr>
@@ -58,25 +40,13 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
+                @Html.DisplayFor(modelItem => item.ImageFileName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
+                @Html.DisplayFor(modelItem => item.ImageFileData)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @if(item.ImageFileData != null)
-                {
-                <img style="width:60px ;height:80px" src="data:image/*base64
-                     @(Convert.ToBase64String(item.ImageFileData))" alt=""/>
-                }
-            <td>
-                @Html.DisplayFor(modelItem => item.Archived)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProjectPriority.Id)
+                @Html.DisplayFor(modelItem => item.ImageContentType)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
