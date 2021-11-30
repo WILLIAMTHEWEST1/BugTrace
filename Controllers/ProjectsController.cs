@@ -170,25 +170,33 @@ namespace BugTrace.Controllers
                         model.Project.ImageFileName = model.Project.ImageFile.FileName;
                         model.Project.ImageContentType = model.Project.ImageFile.ContentType;
                     }
-                }
-                await _projectService.UpdateProjectAsync(model.Project);
-                if (!string.IsNullOrEmpty(model.PmId))
-                {
-                    await _projectService.AddProjectManagerAsync(model.PmId, model.Project.Id);
 
+                    await _projectService.UpdateProjectAsync(model.Project);
+
+                    if (!string.IsNullOrEmpty(model.PmId))
+                    {
+                        await _projectService.AddProjectManagerAsync(model.PmId, model.Project.Id);
+
+                    }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction("Index");
-            }
                 catch (DbUpdateConcurrencyException)
-            {
 
-                if (!await ProjectExists(model.Project.Id))
                 {
 
+                    if (!await ProjectExists(model.Project.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
+               
             }
 
-            
+
             ViewData["ProjectPriorityId"] = new SelectList(await _lookupService.GetProjectPrioritiesAsync(), "Id", "Id", model.Project.ProjectPriorityId);
             return View(model.Project);
         }
@@ -240,5 +248,5 @@ namespace BugTrace.Controllers
             return (await _projectService.GetAllProjectsByCompanyAsync(companyId)).Any(p => p.Id == id);
         }
     }
- }
+}
 

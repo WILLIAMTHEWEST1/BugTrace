@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BugTrace.Extensions;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +32,10 @@ namespace BugTrace.Models
         public String Description { get; set; }
 
         [NotMapped]
+        [DisplayName("Select a file")]
         [DataType(DataType.Upload)]
+        [MaxFileSize(1024 * 1024)]
+        [AllowedExtensions(new string[] { ".jpg", ".png", ".doc", ".docx", ".xls", ".xlsx", ".pdf" })]
         public IFormFile ImageFile { get; set; }
 
         [DisplayName("File Name")]
